@@ -5,7 +5,7 @@ import {
     CharacterSchema,
   } from "@/types/character";
   
-  const BASE_URL = "https://rickandmortyapi.com/api";
+  const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
   
   export interface GetCharactersParams {
     name?: string;

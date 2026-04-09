@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="es" className={mainFont.variable}>
       <body 
         className="min-h-screen antialiased"
-        style={{ backgroundColor: "#4ccac4" }}   // Negro puro
+        style={{ backgroundColor: "#4ccac4" }}  
       >
         <QueryProvider>
           {children}

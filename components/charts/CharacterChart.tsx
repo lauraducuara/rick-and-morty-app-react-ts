@@ -9,7 +9,7 @@ import {  BarChart, Bar,
   Cell,
   PieChart,
   Pie,
-  Legend,
+  RadarChart, Radar, PolarAngleAxis, PolarRadiusAxis, Legend, PolarGrid 
 } from "recharts";
 import { useAllCharactersForChart } from "@/hooks/useCharacters";
 import { 
@@ -84,7 +84,7 @@ export function CharacterChart() {
           ))}
 
           <div className="flex gap-1 bg-zinc-800 rounded-xl p-1">
-            {(["bar", "pie"] as ChartType[]).map((type) => (
+            {(["bar", "pie", "radar"] as ChartType[]).map((type) => (
               <button
                 key={type}
                 onClick={() => setChartType(type)}
@@ -96,7 +96,7 @@ export function CharacterChart() {
                   }
                 `}
               >
-                {type === "bar" ? "Barras" : "Pastel"}
+                {type === "bar" ? "Barras" : type === "pie" ? "Pastel" : "Radar"}
               </button>
             ))}
           </div>
@@ -125,7 +125,7 @@ export function CharacterChart() {
               </Bar>
             </BarChart>
           </ResponsiveContainer>
-        ) : (
+        ) : chartType === "pie" ? (
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
@@ -144,6 +144,26 @@ export function CharacterChart() {
               <Legend wrapperStyle={{ fontSize: 12, color: "#a1a1aa" }} />
             </PieChart>
           </ResponsiveContainer>
+        ) : (
+          <ResponsiveContainer width="100%" height="100%">
+          <RadarChart data={chartData}>
+            <PolarGrid stroke="#3f3f46" />
+            <PolarAngleAxis dataKey="name" tick={{ fill: "#a1a1aa", fontSize: 11 }} />
+            <Radar
+              dataKey="count"
+              stroke="#10b981"
+              fill="#10b981"
+              fillOpacity={0.3}
+            />
+            <Tooltip
+              contentStyle={{
+                background: "#18181b",
+                border: "1px solid #3f3f46",
+                borderRadius: 8,
+              }}
+            />
+          </RadarChart>
+        </ResponsiveContainer>
         )}
       </div>
     </section>
