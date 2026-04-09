@@ -1,101 +1,122 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState, useEffect } from "react";
+import { useFilterStore } from "@/store/filterStore";
+import { useCharacters } from "@/hooks/useCharacters";
+import { CharacterFilters } from "@/components/characters/CharacterFilters";
+import { CharacterGrid } from "@/components/characters/CharacterGrid";
+import { CharacterChart } from "@/components/charts/CharacterChart";
+
+export default function HomePage() {
+  const { search, status } = useFilterStore();
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    setPage(1);
+  }, [search, status]);
+
+  const { data, isLoading, isError, error } = useCharacters({
+    name: search || undefined,
+    status: status || undefined,
+    page,
+  });
+
+  const totalPages = data?.info.pages || 1;
+  const hasNext = !!data?.info.next;
+  const hasPrev = !!data?.info.prev;
+
+  const goToNext = () => hasNext && setPage((p) => p + 1);
+  const goToPrev = () => hasPrev && setPage((p) => p - 1);
+
+  const goToPage = (newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setPage(newPage);
+    }
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="min-h-screen pb-20 bg-zinc-950">
+      <header className="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-4xl font-bold tracking-tighter text-white">
+                Rick and Morty
+              </h1>
+              <p className="text-zinc-500 mt-1 text-lg">
+                Explora el multiverso  de Rick y Morty• {data?.info.count?.toLocaleString() || 0} personajes
+              </p>
+            </div>
+            <div className="text-4xl opacity-80">🌌</div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+      </header>
+
+      <div className="max-w-7xl mx-auto px-6 pt-10 space-y-12">
+          <CharacterFilters />
+        <CharacterChart />
+        <div className="space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <h2 className="text-2xl font-semibold text-white">Todos los personajes</h2>
+            
+            {totalPages > 1 && (
+              <div className="text-zinc-500 text-sm flex items-center gap-2">
+                Página <span className="text-white font-medium">{page}</span> de {totalPages}
+              </div>
+            )}
+          </div>
+
+          <CharacterGrid
+            characters={data?.results || []}
+            isLoading={isLoading}
+            isError={isError}
+            errorMessage={error?.message || "Error al cargar los personajes"}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+          {/* Paginación mejorada */}
+          {totalPages > 1 && (
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
+              <button
+                onClick={goToPrev}
+                disabled={!hasPrev}
+                className="px-8 py-3 rounded-2xl border border-zinc-700 hover:border-zinc-600 disabled:opacity-40 disabled:hover:border-zinc-700 transition-all flex items-center gap-2 text-sm font-medium"
+              >
+                ← Anterior
+              </button>
+
+              {/* Selector de página */}
+              <div className="flex items-center gap-3 bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-2">
+                <span className="text-zinc-500 text-sm">Ir a página</span>
+                <input
+                  type="number"
+                  min={1}
+                  max={totalPages}
+                  value={page}
+                  onChange={(e) => goToPage(Number(e.target.value))}
+                  className="w-16 bg-transparent text-center text-white font-medium focus:outline-none border border-zinc-700 rounded-lg py-1"
+                />
+                <span className="text-zinc-500 text-sm">de {totalPages}</span>
+              </div>
+
+              <button
+                onClick={goToNext}
+                disabled={!hasNext}
+                className="px-8 py-3 rounded-2xl border border-zinc-700 hover:border-zinc-600 disabled:opacity-40 disabled:hover:border-zinc-700 transition-all flex items-center gap-2 text-sm font-medium"
+              >
+                Siguiente →
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Footer simple */}
+      <footer className="mt-20 border-t border-zinc-800 py-8 text-center text-zinc-600 text-xs">
+        <p>
+          Proyecto demo con Next.js 15 • TanStack Query • Zustand • Zod • Recharts
+        </p>
+        <p className="mt-1">Datos de <a href="https://rickandmortyapi.com" target="_blank" className="hover:text-green-400 transition-colors">Rick and Morty API</a></p>
       </footer>
-    </div>
+    </main>
   );
 }
