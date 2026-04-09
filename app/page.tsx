@@ -6,6 +6,7 @@ import { useCharacters } from "@/hooks/useCharacters";
 import { CharacterFilters } from "@/components/characters/CharacterFilters";
 import { CharacterGrid } from "@/components/characters/CharacterGrid";
 import { CharacterChart } from "@/components/charts/CharacterChart";
+import { CharacterModal } from "@/components/ui/CharacterModal";
 
 export default function HomePage() {
   const { search, status } = useFilterStore();
@@ -114,6 +115,7 @@ export default function HomePage() {
         </p>
         <p className="mt-1">Datos de <a href="https://rickandmortyapi.com" target="_blank" className="hover:text-green-400 transition-colors">Rick y Morty API</a></p>
       </footer>
+      <CharacterModal />
     </main>
   );
 }
