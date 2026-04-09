@@ -1,7 +1,6 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
 import { useCharacter } from "@/hooks/useCharacters";
 import { StatusBadge } from "@/components/ui/StatusBadge";

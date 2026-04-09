@@ -1,14 +1,18 @@
+import Image from "next/image";
 
 export function LoadingSpinner() {
   return (
     <div className="flex flex-col items-center justify-center py-20 gap-4">
-      <img 
-        src="/RickMortyGift.gif" 
-        alt="Cargando..." 
-        className="w-32 h-32 object-contain" 
+      <Image
+        src="/RickMortyGift.gif"
+        alt="Cargando..."
+        width={128}
+        height={128}
+        className="object-contain"
+        unoptimized
       />
       <p className="text-green-400 text-lg font-bold animate-pulse">
-      Buscando en el multiverso...
+        Buscando en el multiverso...
       </p>
     </div>
   );

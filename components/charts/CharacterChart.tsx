@@ -9,7 +9,7 @@ import {  BarChart, Bar,
   Cell,
   PieChart,
   Pie,
-  RadarChart, Radar, PolarAngleAxis, PolarRadiusAxis, Legend, PolarGrid 
+  RadarChart, Radar, PolarAngleAxis,  Legend, PolarGrid 
 } from "recharts";
 import { useAllCharactersForChart } from "@/hooks/useCharacters";
 import { 
