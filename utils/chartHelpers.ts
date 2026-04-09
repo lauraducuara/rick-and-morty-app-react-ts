@@ -39,3 +39,21 @@ export function groupByGender(characters: Character[]): ChartDataPoint[] {
   return Array.from(map.entries())
     .map(([name, count]) => ({ name, count }));
 }
+export function groupByTopEpisodes(characters: Character[]): ChartDataPoint[] {
+  const episodeCount = new Map<string, number>();
+
+  characters.forEach((character) => {
+    character.episode.forEach((episodeUrl) => {
+      const episodeId = episodeUrl.split("/").pop() || "unknown";
+      episodeCount.set(episodeId, (episodeCount.get(episodeId) ?? 0) + 1);
+    });
+  });
+
+  return Array.from(episodeCount.entries())
+    .map(([id, count]) => ({
+      name: `Ep. ${id.padStart(2, "0")}`,  
+      count,
+    }))
+    .sort((a, b) => b.count - a.count)     
+    .slice(0, 8);                      
+}

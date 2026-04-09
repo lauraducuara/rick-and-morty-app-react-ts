@@ -73,7 +73,6 @@ export default function HomePage() {
             errorMessage={error?.message || "Error al cargar los personajes"}
           />
 
-          {/* Paginación mejorada */}
           {totalPages > 1 && (
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
               <button
@@ -84,7 +83,6 @@ export default function HomePage() {
                 ← Anterior
               </button>
 
-              {/* Selector de página */}
               <div className="flex items-center gap-3 bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-2">
                 <span className="text-zinc-500 text-sm">Ir a página</span>
                 <input
@@ -110,12 +108,11 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Footer simple */}
       <footer className="mt-20 border-t border-zinc-800 py-8 text-center text-zinc-600 text-xs">
         <p>
-          Proyecto demo con Next.js 15 • TanStack Query • Zustand • Zod • Recharts
+          Proyecto demo con Next.js realizado por <a href="https://www.linkedin.com/in/laura-alejandra-ducuara-covos-6b2650208/" target="_blank" className="hover:text-green-400 transition-colors">Laura Ducuara</a>
         </p>
-        <p className="mt-1">Datos de <a href="https://rickandmortyapi.com" target="_blank" className="hover:text-green-400 transition-colors">Rick and Morty API</a></p>
+        <p className="mt-1">Datos de <a href="https://rickandmortyapi.com" target="_blank" className="hover:text-green-400 transition-colors">Rick y Morty API</a></p>
       </footer>
     </main>
   );

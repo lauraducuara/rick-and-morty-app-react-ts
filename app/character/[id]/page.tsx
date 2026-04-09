@@ -34,8 +34,7 @@ export default function CharacterDetailPage() {
 
   return (
     <main className="min-h-screen bg-zinc-950 pb-12">
-      {/* Botón volver */}
-      <div className="max-w-4xl mx-auto px-6 pt-8">
+         <div className="max-w-4xl mx-auto px-6 pt-8">
         <button
           onClick={() => router.back()}
           className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors mb-8 group"
@@ -46,7 +45,6 @@ export default function CharacterDetailPage() {
 
       <div className="max-w-4xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-10">
-          {/* Imagen */}
           <div className="relative">
             <div className="sticky top-8">
               <div className="aspect-square rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl">
@@ -61,7 +59,6 @@ export default function CharacterDetailPage() {
             </div>
           </div>
 
-          {/* Información */}
           <div className="space-y-8">
             <div>
               <div className="flex items-center gap-4 mb-3">
@@ -100,10 +97,10 @@ export default function CharacterDetailPage() {
               </div>
             </div>
 
-            {/* Episodios */}
             <div>
               <p className="text-zinc-500 mb-3">Aparece en {character.episode.length} episodios</p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2">              {/* Selector de página */}
+
                 {character.episode.slice(0, 12).map((ep, index) => (
                   <div
                     key={index}
@@ -120,7 +117,6 @@ export default function CharacterDetailPage() {
               </div>
             </div>
 
-            {/* Fecha de creación en la API */}
             <div className="pt-6 border-t border-zinc-800 text-xs text-zinc-500">
               Creado en la API: {new Date(character.created).toLocaleDateString("es-ES")}
             </div>

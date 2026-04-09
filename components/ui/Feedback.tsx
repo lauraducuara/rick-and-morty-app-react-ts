@@ -3,7 +3,7 @@ export function LoadingSpinner() {
   return (
     <div className="flex flex-col items-center justify-center py-20 gap-4">
       <img 
-        src="/public/RickMortyGift.gif" 
+        src="/RickMortyGift.gif" 
         alt="Cargando..." 
         className="w-32 h-32 object-contain" 
       />
