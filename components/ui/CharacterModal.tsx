@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 import { useFilterStore } from "@/store/filterStore";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 
@@ -46,18 +47,22 @@ export function CharacterModal() {
 
         <div className="grid md:grid-cols-2">
           <div className="relative">
-            <img
+            <Image
               src={c.image}
               alt={c.name}
-              className="w-full h-80 md:h-full object-cover"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent md:bg-gradient-to-r" />
             <div className="absolute bottom-4 left-4 md:hidden">
               <StatusBadge status={c.status} />
             </div>
           </div>
+
           <div className="p-6 space-y-5 overflow-y-auto max-h-[500px]">
-             <div className="space-y-2">
+            <div className="space-y-2">
               <div className="hidden md:block">
                 <StatusBadge status={c.status} />
               </div>
@@ -71,15 +76,20 @@ export function CharacterModal() {
 
             <div className="space-y-3">
               {[
-                { label: "Especie",    value: c.species },
-                { label: "Género",     value: c.gender },
-                { label: "Tipo",       value: c.type || "—" },
-                { label: "Origen",     value: c.origin.name },
-                { label: "Ubicación",  value: c.location.name },
+                { label: "Especie", value: c.species },
+                { label: "Género", value: c.gender },
+                { label: "Tipo", value: c.type || "—" },
+                { label: "Origen", value: c.origin.name },
+                { label: "Ubicación", value: c.location.name },
               ].map(({ label, value }) => (
-                <div key={label} className="flex justify-between items-start gap-4 py-2 border-b border-zinc-800 last:border-0">
+                <div
+                  key={label}
+                  className="flex justify-between items-start gap-4 py-2 border-b border-zinc-800 last:border-0"
+                >
                   <span className="text-zinc-500 text-xs shrink-0">{label}</span>
-                  <span className="text-zinc-200 text-xs text-right font-medium">{value}</span>
+                  <span className="text-zinc-200 text-xs text-right font-medium">
+                    {value}
+                  </span>
                 </div>
               ))}
             </div>
@@ -106,7 +116,8 @@ export function CharacterModal() {
             </div>
 
             <p className="text-zinc-600 text-xs pt-2 border-t border-zinc-800">
-              Registrado el {new Date(c.created).toLocaleDateString("es-ES")}
+              Registrado el{" "}
+              {new Date(c.created).toLocaleDateString("es-ES")}
             </p>
           </div>
         </div>

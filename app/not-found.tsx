@@ -1,13 +1,17 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function NotFound() {
   return (
     <main className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center px-6 text-center">
       
-      <img
+      <Image
         src="/RickMortyGift.gif"
         alt="Rick and Morty"
-        className="w-48 h-48 object-contain mb-8"
+        width={192}
+        height={192}
+        className="object-contain mb-8"
+        unoptimized
       />
 
       <h1 className="text-8xl font-bold text-green-400 mb-2">404</h1>
@@ -17,7 +21,7 @@ export default function NotFound() {
       </h2>
       
       <p className="text-zinc-500 max-w-sm mb-8">
-        Parece que Rick te mandó a la dimensión equivocada. 
+        Parece que Rick te mando a la dimension equivocada. 
         Esta página no existe en ninguno de los universos conocidos.
       </p>
 
