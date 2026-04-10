@@ -57,6 +57,9 @@ NEXT_PUBLIC_API_URL=https://rickandmortyapi.com/api
 ### Detalle personaje
 ![Detail](public/screenshots/detail.png)
 
+
+### Página 404
+![Not found](public/screenshots/not-found.png)
 ---
 
 ## Estructura
