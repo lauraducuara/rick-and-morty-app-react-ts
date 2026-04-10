@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/lib/query/QueryProvider";
+import { Navbar } from "@/components/ui/Navbar";
 
 const mainFont = Poppins({
   weight: ["400", "600"],
@@ -26,6 +27,8 @@ export default function RootLayout({
         style={{ backgroundColor: "#4ccac4" }}  
       >
         <QueryProvider>
+          
+     <Navbar/>
           {children}
         </QueryProvider>
       </body>

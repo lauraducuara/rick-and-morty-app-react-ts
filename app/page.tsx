@@ -8,12 +8,9 @@ import { CharacterGrid } from "@/components/characters/CharacterGrid";
 import { CharacterChart } from "@/components/charts/CharacterChart";
 import { CharacterModal } from "@/components/ui/CharacterModal";
 
-type Tab = "characters" | "stats";
-
 export default function HomePage() {
-  const { search, status } = useFilterStore();
+  const { search, status, activeTab } = useFilterStore(); // ← activeTab del store
   const [page, setPage] = useState(1);
-  const [activeTab, setActiveTab] = useState<Tab>("characters");
 
   useEffect(() => {
     setPage(1);
@@ -36,56 +33,14 @@ export default function HomePage() {
   };
 
   return (
-    <main className="min-h-screen pb-20 bg-zinc-950">
-
-      <header className="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50 p-5">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="text-2xl">🧬</span>
-            <div>
-              <h1
-                className="font-bold text-white leading-none"
-                style={{ fontSize: "28px" }}
-              >
-                Rick & Morty
-              </h1>
-              <p className="text-zinc-500 text-xs mt-0.5">
-                {data?.info.count?.toLocaleString() || 0} personajes
-              </p>
-            </div>
-          </div>
-
-          <div className="flex gap-1 bg-zinc-900 border border-zinc-800 rounded-xl p-1">
-            {([
-              { key: "characters", label: "👾 Personajes" },
-              { key: "stats", label: "📊 Estadísticas" },
-            ] as { key: Tab; label: string }[]).map((tab) => (
-              <button
-                key={tab.key}
-                onClick={() => setActiveTab(tab.key)}
-                className={`
-            px-4 py-2 rounded-lg text-sm font-medium transition-all
-            ${activeTab === tab.key
-                    ? "bg-zinc-700 text-white"
-                    : "text-zinc-500 hover:text-zinc-300"
-                  }
-          `}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </header>
+    <main className="min-h-screen pb-20">
       <div className="max-w-7xl mx-auto px-6 pt-10">
+
         {activeTab === "characters" && (
           <div className="space-y-6">
             <CharacterFilters />
-
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <h2 className="text-xl font-semibold text-white">
-                Todos los personajes
-              </h2>
+              <h2 className="text-xl font-semibold text-white">Todos los personajes</h2>
               {totalPages > 1 && (
                 <p className="text-zinc-500 text-sm">
                   Página <span className="text-white font-medium">{page}</span> de {totalPages}
@@ -109,7 +64,6 @@ export default function HomePage() {
                 >
                   ← Anterior
                 </button>
-
                 <div className="flex items-center gap-3 bg-zinc-900 border border-zinc-800 rounded-2xl px-5 py-2">
                   <span className="text-zinc-500 text-sm">Ir a página</span>
                   <input
@@ -122,7 +76,6 @@ export default function HomePage() {
                   />
                   <span className="text-zinc-500 text-sm">de {totalPages}</span>
                 </div>
-
                 <button
                   onClick={goToNext}
                   disabled={!hasNext}
@@ -152,21 +105,13 @@ export default function HomePage() {
       <footer className="mt-20 border-t border-zinc-800 py-8 text-center text-zinc-600 text-xs">
         <p>
           Proyecto demo con Next.js realizado por{" "}
-          <a
-            href="https://www.linkedin.com/in/laura-alejandra-ducuara-covos-6b2650208/"
-            target="_blank"
-            className="hover:text-green-400 transition-colors"
-          >
+          <a href="https://www.linkedin.com/in/laura-alejandra-ducuara-covos-6b2650208/" target="_blank" className="hover:text-green-400 transition-colors">
             Laura Ducuara
           </a>
         </p>
         <p className="mt-1">
           Datos de{" "}
-          <a
-            href="https://rickandmortyapi.com"
-            target="_blank"
-            className="hover:text-green-400 transition-colors"
-          >
+          <a href="https://rickandmortyapi.com" target="_blank" className="hover:text-green-400 transition-colors">
             Rick and Morty API
           </a>
         </p>
