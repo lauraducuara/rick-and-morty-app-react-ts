@@ -15,10 +15,11 @@ export function CharacterFilters() {
   const hasFilters = search || status;
 
   return (
-    <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+    <div className="flex flex-col sm:flex-row sm:flex-nowrap gap-3 items-center w-full">
+      
       <SearchInput value={search} onChange={setSearch} />
 
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex gap-2 flex-nowrap">
         {STATUS_OPTIONS.map((opt) => (
           <button
             key={opt.value}
@@ -40,7 +41,7 @@ export function CharacterFilters() {
       {hasFilters && (
         <button
           onClick={reset}
-          className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors underline underline-offset-2"
+          className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors underline underline-offset-2 whitespace-nowrap"
         >
           Limpiar filtros
         </button>

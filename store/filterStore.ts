@@ -2,12 +2,15 @@ import { create } from "zustand";
 import { Character } from "@/types/character";
 
 type Tab = "characters" | "stats";
-
 interface FilterState {
   search: string;
   status: string;
+  sort: string;
+
   setSearch: (value: string) => void;
   setStatus: (value: string) => void;
+  setSort: (value: string) => void;
+
   reset: () => void;
 
   selectedCharacter: Character | null;
@@ -21,9 +24,13 @@ interface FilterState {
 export const useFilterStore = create<FilterState>((set) => ({
   search: "",
   status: "",
+  sort: "default",
+
   setSearch: (value) => set({ search: value }),
   setStatus: (value) => set({ status: value }),
-  reset: () => set({ search: "", status: "" }),
+  setSort: (value) => set({ sort: value }),
+
+  reset: () => set({ search: "", status: "", sort: "default" }),
 
   selectedCharacter: null,
   openModal: (character) => set({ selectedCharacter: character }),

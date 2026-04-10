@@ -7,6 +7,7 @@ import { CharacterFilters } from "@/components/characters/CharacterFilters";
 import { CharacterGrid } from "@/components/characters/CharacterGrid";
 import { CharacterChart } from "@/components/charts/CharacterChart";
 import { CharacterModal } from "@/components/ui/CharacterModal";
+import { SortDropdown } from "@/components/characters/SortDropdown";
 
 export default function HomePage() {
   const { search, status, activeTab } = useFilterStore(); // ← activeTab del store
@@ -38,7 +39,6 @@ export default function HomePage() {
 
         {activeTab === "characters" && (
           <div className="space-y-6">
-            <CharacterFilters />
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <h2 className="text-xl font-semibold text-white">Todos los personajes</h2>
               {totalPages > 1 && (
@@ -46,6 +46,12 @@ export default function HomePage() {
                   Página <span className="text-white font-medium">{page}</span> de {totalPages}
                 </p>
               )}
+            </div>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+
+              <CharacterFilters />
+
+              <SortDropdown />
             </div>
 
             <CharacterGrid
