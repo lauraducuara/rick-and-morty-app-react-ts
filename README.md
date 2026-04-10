@@ -46,7 +46,7 @@ NEXT_PUBLIC_API_URL=https://rickandmortyapi.com/api
 ## Capturas
 
 ### Inicio
-![Home](public/screenshots/home.png)
+![Home](public/screenshots/homeV2.png)
 
 ### Estadisticas
 ![Chart](public/screenshots/chart.png)
