@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useCharacter } from "@/hooks/useCharacters";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { LoadingSpinner, ErrorMessage } from "@/components/ui/Feedback";
+import { Footer } from "@/components/ui/Footer";
 
 export default function CharacterDetailPage() {
     const params = useParams();
@@ -140,6 +141,8 @@ export default function CharacterDetailPage() {
                     </div>
                 </div>
             </div>
+                 <Footer/>
+            
         </main>
     );
 }

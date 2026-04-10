@@ -8,6 +8,7 @@ import { CharacterGrid } from "@/components/characters/CharacterGrid";
 import { CharacterChart } from "@/components/charts/CharacterChart";
 import { CharacterModal } from "@/components/ui/CharacterModal";
 import { SortDropdown } from "@/components/characters/SortDropdown";
+import { Footer } from "@/components/ui/Footer";
 
 export default function HomePage() {
   const { search, status, activeTab } = useFilterStore(); // ← activeTab del store
@@ -108,20 +109,7 @@ export default function HomePage() {
 
       </div>
 
-      <footer className="mt-20 border-t border-zinc-800 py-8 text-center text-zinc-600 text-xs">
-        <p>
-          Proyecto demo con Next.js realizado por{" "}
-          <a href="https://www.linkedin.com/in/laura-alejandra-ducuara-covos-6b2650208/" target="_blank" className="hover:text-green-400 transition-colors">
-            Laura Ducuara
-          </a>
-        </p>
-        <p className="mt-1">
-          Datos de{" "}
-          <a href="https://rickandmortyapi.com" target="_blank" className="hover:text-green-400 transition-colors">
-            Rick and Morty API
-          </a>
-        </p>
-      </footer>
+     <Footer/>
 
       <CharacterModal />
     </main>
