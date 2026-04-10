@@ -24,7 +24,6 @@ export function Navbar() {
       audioRef.current.loop = true;
       audioRef.current.volume = 0.3;
     }
-
     if (playing) {
       audioRef.current.pause();
       setPlaying(false);
@@ -36,28 +35,24 @@ export function Navbar() {
 
   return (
     <header className="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
         <div
-          className="flex items-center gap-3 cursor-pointer"
+          className="flex items-center gap-2 cursor-pointer shrink-0"
           onClick={() => handleTab("characters")}
         >
-          <span className="text-2xl">🧬</span>
-          <h1
-            className="font-bold text-white leading-none hover:text-green-400 transition-colors"
-            style={{ fontSize: "28px" }}
-          >
+          <span className="text-xl sm:text-2xl">🧬</span>
+          <h1 className="font-bold text-white leading-none hover:text-green-400 transition-colors text-lg sm:text-2xl">
             Rick & Morty
           </h1>
         </div>
 
-        <div className="flex items-center gap-3">
-              <button
+        <div className="flex items-center gap-2">
+          <button
             onClick={toggleMusic}
             title={playing ? "Pausar música" : "Reproducir intro"}
             className={`
-              w-8 h-8 rounded-full flex items-center justify-center
-              border transition-all text-sm
+              w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center
+              border transition-all text-xs sm:text-sm shrink-0
               ${playing
                 ? "border-green-500 text-green-400 bg-green-500/10 animate-pulse"
                 : "border-zinc-700 text-zinc-500 hover:border-zinc-500 hover:text-zinc-300"
@@ -67,26 +62,28 @@ export function Navbar() {
             {playing ? "🔊" : "🔇"}
           </button>
 
-          <div className="flex gap-1 bg-zinc-900 border border-zinc-800 rounded-xl p-1">
+          <div className="flex gap-0.5 bg-zinc-900 border border-zinc-800 rounded-xl p-1">
             {([
-              { key: "characters", label: "👾 Personajes" },
-              { key: "stats",      label: "📊 Estadísticas" },
-            ] as { key: Tab; label: string }[]).map((tab) => (
+              { key: "characters", label: "👾", labelFull: "Personajes" },
+              { key: "stats",      label: "📊", labelFull: "Estadísticas" },
+            ] as { key: Tab; label: string; labelFull: string }[]).map((tab) => (
               <button
                 key={tab.key}
                 onClick={() => handleTab(tab.key)}
                 className={`
-                  px-4 py-2 rounded-lg text-sm font-medium transition-all
+                  px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all
                   ${activeTab === tab.key && pathname === "/"
                     ? "bg-zinc-700 text-white"
                     : "text-zinc-500 hover:text-zinc-300"
                   }
                 `}
               >
-                {tab.label}
+                <span className="sm:hidden">{tab.label}</span>
+                <span className="hidden sm:inline">{tab.label} {tab.labelFull}</span>
               </button>
             ))}
           </div>
+
         </div>
       </div>
     </header>
